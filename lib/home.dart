@@ -7,7 +7,63 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: _head(),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: SizedBox(height: 340, child: _head()),
+          ),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Transaction History',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 19,
+                        color: Colors.black),
+                  ),
+                  Text(
+                    'See all',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                        color: Colors.grey),
+                  )
+                ],
+              ),
+            ),
+          ),
+          SliverList(delegate: SliverChildBuilderDelegate((context, index) {
+            return ListTile(
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.asset(
+                  'assets/images/Transfer.png',
+                  height: 40,
+                ),
+              ),
+              title: const Text(
+                'transfer',
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              ),
+              subtitle: const Text(
+                'today',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              trailing: const Text(
+                '\$ 56',
+                style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.green),
+              ),
+            );
+          }))
+        ],
+      ),
     ));
   }
 }
@@ -29,7 +85,7 @@ Widget _head() {
               children: [
                 Positioned(
                     top: 35,
-                    left: 340,
+                    left: 330,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(7),
                       child: Container(
@@ -44,7 +100,7 @@ Widget _head() {
                       ),
                     )),
                 const Padding(
-                  padding: EdgeInsets.only(top: 35, left: 10),
+                  padding: EdgeInsets.only(top: 35, left: 15),
                   child: Column(
                     children: [
                       Text(
