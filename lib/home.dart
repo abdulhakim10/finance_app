@@ -1,3 +1,4 @@
+import 'package:finance_app/data/listdata.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -36,32 +37,38 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          SliverList(delegate: SliverChildBuilderDelegate((context, index) {
-            return ListTile(
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Image.asset(
-                  'assets/images/Transfer.png',
-                  height: 40,
-                ),
-              ),
-              title: const Text(
-                'transfer',
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-              ),
-              subtitle: const Text(
-                'today',
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              trailing: const Text(
-                '\$ 56',
-                style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.green),
-              ),
-            );
-          }))
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return ListTile(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Image.asset(
+                      geter()[index].image!,
+                      height: 40,
+                    ),
+                  ),
+                  title: Text(
+                    geter()[index].name!,
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w600),
+                  ),
+                  subtitle: Text(
+                    geter()[index].time!,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  trailing: Text(
+                    geter()[index].fee!,
+                    style: const TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.green),
+                  ),
+                );
+              },
+              childCount: geter().length,
+            ),
+          )
         ],
       ),
     ));
