@@ -1,3 +1,5 @@
+// import 'package:finance_app/widgets/chart.dart';
+import 'package:finance_app/widgets/chart.dart';
 import 'package:flutter/material.dart';
 
 class Statistics extends StatefulWidget {
@@ -23,7 +25,7 @@ class _StatisticsState extends State<Statistics> {
                     height: 20,
                   ),
                   const Text(
-                    'Statstics',
+                    'Statistics',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -67,10 +69,48 @@ class _StatisticsState extends State<Statistics> {
                         })
                       ],
                     ),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 120,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey, width: 2),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                'Expense',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.arrow_downward,
+                                color: Colors.grey,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Chart()
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

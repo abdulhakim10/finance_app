@@ -1,5 +1,6 @@
 import 'package:finance_app/Screens/statistics.dart';
 import 'package:finance_app/home.dart';
+import 'package:finance_app/widgets/chart.dart';
 import 'package:flutter/material.dart';
 
 void main() {
