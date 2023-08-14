@@ -60,9 +60,11 @@ class Home extends StatelessWidget {
                   trailing: Text(
                     geter()[index].fee!,
                     style: const TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.green),
+                      fontSize: 19,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.green,
+                      // color: history.IN == 'Income' ? Colors.green : Colors.red,
+                    ),
                   ),
                 );
               },
