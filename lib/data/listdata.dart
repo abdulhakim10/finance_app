@@ -10,13 +10,13 @@ List<Money> geter() {
   Money starbucks = Money();
   starbucks.buy = true;
   starbucks.fee = '15';
-  starbucks.image = 'assets/images/Transfer.png';
+  starbucks.image = 'assets/images/str.jpg';
   starbucks.name = 'starbucks';
   starbucks.time = 'today';
   Money trasfer = Money();
   trasfer.buy = true;
   trasfer.fee = '100';
-  trasfer.image = 'assets/images/str.jpg';
+  trasfer.image = 'assets/images/Transfer.png';
   trasfer.name = 'trasfer for sam';
   trasfer.time = 'jan 30,2022';
   return [upwork, starbucks, trasfer, upwork, starbucks, trasfer];

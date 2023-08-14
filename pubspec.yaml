@@ -64,6 +64,7 @@ flutter:
     - assets\images\Transfer.png
     - assets\images\upp.png
     - assets\images\str.jpg
+    - assets\images\unnamed.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
