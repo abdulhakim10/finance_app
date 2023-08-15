@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class Add_Screen extends StatefulWidget {
@@ -8,6 +10,10 @@ class Add_Screen extends StatefulWidget {
 }
 
 class _Add_ScreenState extends State<Add_Screen> {
+  final TextEditingController expalin_C = TextEditingController();
+  FocusNode ex = FocusNode();
+  final TextEditingController amount_c = TextEditingController();
+  FocusNode amount_ = FocusNode();
   String? selectedItem;
   final List<String> _item = [
     'Food',
@@ -16,6 +22,17 @@ class _Add_ScreenState extends State<Add_Screen> {
     'Education'
   ];
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ex.addListener(() {
+      setState(() {});
+    });
+    amount_.addListener(() {
+      setState(() {});
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -46,71 +63,138 @@ class _Add_ScreenState extends State<Add_Screen> {
           const SizedBox(
             height: 50,
           ),
+          name(),
+          const SizedBox(height: 30),
+          explain(),
+          const SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              width: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  width: 2,
-                  color: const Color(0xffC5C5C5),
+            child: TextField(
+              keyboardType: TextInputType.number,
+              focusNode: amount_,
+              controller: amount_c,
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                labelText: 'amount',
+                labelStyle:
+                    TextStyle(fontSize: 17, color: Colors.grey.shade500),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    width: 2,
+                    color: Color(0xffC5C5C5),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    width: 2,
+                    color: Color(0xff368983),
+                  ),
                 ),
               ),
-              child: DropdownButton<String>(
-                  value: selectedItem,
-                  items: _item
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: SizedBox(
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 40,
-                                    child: Image.asset('assets/images/$e.png'),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    e,
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ))
-                      .toList(),
-                  selectedItemBuilder: (context) => _item
-                      .map((e) => Row(
-                            children: [
-                              SizedBox(
-                                width: 40,
-                                child: Image.asset('assets/images/$e.png'),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(e)
-                            ],
-                          ))
-                      .toList(),
-                  hint: const Text(
-                    'Name',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  dropdownColor: Colors.white,
-                  isExpanded: true,
-                  underline: Container(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedItem = value!;
-                    });
-                  }),
             ),
-          )
+          ),
         ],
+      ),
+    );
+  }
+
+  Padding explain() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: TextField(
+        focusNode: ex,
+        controller: expalin_C,
+        decoration: InputDecoration(
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          labelText: 'explain',
+          labelStyle: TextStyle(fontSize: 17, color: Colors.grey.shade500),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              width: 2,
+              color: Color(0xffC5C5C5),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              width: 2,
+              color: Color(0xff368983),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding name() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        width: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            width: 2,
+            color: const Color(0xffC5C5C5),
+          ),
+        ),
+        child: DropdownButton<String>(
+            value: selectedItem,
+            items: _item
+                .map((e) => DropdownMenuItem(
+                      value: e,
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 40,
+                              child: Image.asset('assets/images/$e.png'),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              e,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ))
+                .toList(),
+            selectedItemBuilder: (context) => _item
+                .map((e) => Row(
+                      children: [
+                        SizedBox(
+                          width: 40,
+                          child: Image.asset('assets/images/$e.png'),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(e)
+                      ],
+                    ))
+                .toList(),
+            hint: const Text(
+              'Name',
+              style: TextStyle(color: Colors.grey),
+            ),
+            dropdownColor: Colors.white,
+            isExpanded: true,
+            underline: Container(),
+            onChanged: (value) {
+              setState(() {
+                selectedItem = value!;
+              });
+            }),
       ),
     );
   }
