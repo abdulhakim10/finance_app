@@ -59,27 +59,41 @@ class _Add_ScreenState extends State<Add_Screen> {
                 ),
               ),
               child: DropdownButton<String>(
+                  value: selectedItem,
                   items: _item
                       .map((e) => DropdownMenuItem(
-                            child: Container(
+                            value: e,
+                            child: SizedBox(
                               child: Row(
                                 children: [
-                                  Container(
-                                    width: 40,
-                                    child:
-                                        Image.asset('assets/images/${e}.png'),
-                                  ),
                                   SizedBox(
+                                    width: 40,
+                                    child: Image.asset('assets/images/$e.png'),
+                                  ),
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   Text(
                                     e,
-                                    style: TextStyle(fontSize: 18),
+                                    style: const TextStyle(fontSize: 18),
                                   ),
                                 ],
                               ),
                             ),
-                            value: e,
+                          ))
+                      .toList(),
+                  selectedItemBuilder: (context) => _item
+                      .map((e) => Row(
+                            children: [
+                              SizedBox(
+                                width: 40,
+                                child: Image.asset('assets/images/$e.png'),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(e)
+                            ],
                           ))
                       .toList(),
                   hint: const Text(
