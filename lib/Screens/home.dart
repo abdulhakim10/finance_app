@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 history = box.values.toList()[index];
-                return get(index, history);
+                return getList(history, index);
               },
               childCount: box.length,
             ),
@@ -67,6 +67,15 @@ class _HomeState extends State<Home> {
         ],
       ),
     ));
+  }
+
+  Widget getList(Add_data history, int index) {
+    return Dismissible(
+        key: UniqueKey(),
+        onDismissed: (direction) {
+          history.delete();
+        },
+        child: get(index, history));
   }
 
   ListTile get(int index, Add_data history) {
