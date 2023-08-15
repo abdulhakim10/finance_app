@@ -90,7 +90,7 @@ class _Add_ScreenState extends State<Add_Screen> {
     return GestureDetector(
       onTap: () {
         var add = Add_data(
-            selectedItemi!, amount_c.text, selectedItem!, expalin_C.text, date);
+            selectedItemi!, amount_c.text, date, expalin_C.text, selectedItem!);
         box.add(add);
         Navigator.of(context).pop();
       },
@@ -162,10 +162,6 @@ class _Add_ScreenState extends State<Add_Screen> {
                         alignment: Alignment.center,
                         child: Row(
                           children: [
-                            SizedBox(
-                              width: 40,
-                              child: Image.asset('assets/images/$e.png'),
-                            ),
                             const SizedBox(
                               width: 10,
                             ),

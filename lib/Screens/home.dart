@@ -84,12 +84,12 @@ class _HomeState extends State<Home> {
         borderRadius: BorderRadius.circular(5),
         child: Image.asset(
           // geter()[index].image!,
-          'assets/images/${history.explain}.png',
+          'assets/images/${history.name}.png',
           height: 40,
         ),
       ),
       title: Text(
-        history.explain,
+        history.name,
         style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
       ),
       subtitle: Text(
@@ -97,7 +97,7 @@ class _HomeState extends State<Home> {
         style: const TextStyle(fontWeight: FontWeight.w600),
       ),
       trailing: Text(
-        history.name,
+        history.amount,
         style: TextStyle(
           fontSize: 19,
           fontWeight: FontWeight.w600,

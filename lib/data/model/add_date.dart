@@ -13,5 +13,5 @@ class Add_data extends HiveObject {
   String IN;
   @HiveField(4)
   DateTime dateTime;
-  Add_data(this.IN, this.name, this.explain, this.amount, this.dateTime);
+  Add_data(this.IN, this.amount, this.dateTime, this.explain, this.name);
 }
