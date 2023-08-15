@@ -1,6 +1,6 @@
 import 'package:finance_app/Screens/add.dart';
+import 'package:finance_app/Screens/home.dart';
 import 'package:finance_app/Screens/statistics.dart';
-import 'package:finance_app/home.dart';
 import 'package:flutter/material.dart';
 
 class Bottom extends StatefulWidget {
@@ -13,10 +13,10 @@ class Bottom extends StatefulWidget {
 class _BottomState extends State<Bottom> {
   int index_color = 0;
   List screen = [
-    Home(),
-    Statistics(),
-    Home(),
-    Statistics(),
+    const Home(),
+    const Statistics(),
+    const Home(),
+    const Statistics(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class _BottomState extends State<Bottom> {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => Add_Screen()));
         },
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add),
         backgroundColor: const Color(0xff368983),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: Padding(
           padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
           child: Row(

@@ -1,9 +1,27 @@
 import 'package:finance_app/data/listdata.dart';
+import 'package:finance_app/data/model/add_date.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var history;
+  final box = Hive.box<Add_data>('data');
+  final List<String> day = [
+    'Monday',
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    'friday',
+    'saturday',
+    'sunday'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,40 +58,45 @@ class Home extends StatelessWidget {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return ListTile(
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Image.asset(
-                      geter()[index].image!,
-                      height: 40,
-                    ),
-                  ),
-                  title: Text(
-                    geter()[index].name!,
-                    style: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.w600),
-                  ),
-                  subtitle: Text(
-                    geter()[index].time!,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  trailing: Text(
-                    geter()[index].fee!,
-                    style: const TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.green,
-                      // color: history.IN == 'Income' ? Colors.green : Colors.red,
-                    ),
-                  ),
-                );
+                history = box.values.toList()[index];
+                return get(index, history);
               },
-              childCount: geter().length,
+              childCount: box.length,
             ),
           )
         ],
       ),
     ));
+  }
+
+  ListTile get(int index, Add_data history) {
+    return ListTile(
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Image.asset(
+          // geter()[index].image!,
+          'assets/images/${history.explain}.png',
+          height: 40,
+        ),
+      ),
+      title: Text(
+        history.explain,
+        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(
+        '${day[history.dateTime.weekday - 1]}  ${history.dateTime.year} - ${history.dateTime.day} - ${history.dateTime.month}',
+        style: const TextStyle(fontWeight: FontWeight.w600),
+      ),
+      trailing: Text(
+        history.name,
+        style: TextStyle(
+          fontSize: 19,
+          fontWeight: FontWeight.w600,
+          // color: Colors.green,
+          color: history.IN == 'Income' ? Colors.green : Colors.red,
+        ),
+      ),
+    );
   }
 }
 

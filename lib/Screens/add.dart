@@ -1,6 +1,8 @@
-import 'dart:math';
+// import 'dart:math';
 
+import 'package:finance_app/data/model/add_date.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class Add_Screen extends StatefulWidget {
   const Add_Screen({super.key});
@@ -10,6 +12,7 @@ class Add_Screen extends StatefulWidget {
 }
 
 class _Add_ScreenState extends State<Add_Screen> {
+  final box = Hive.box<Add_data>('data');
   DateTime date = DateTime.now();
   final TextEditingController expalin_C = TextEditingController();
   FocusNode ex = FocusNode();
@@ -85,7 +88,12 @@ class _Add_ScreenState extends State<Add_Screen> {
 
   GestureDetector save() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        var add = Add_data(
+            selectedItemi!, amount_c.text, selectedItem!, expalin_C.text, date);
+        box.add(add);
+        Navigator.of(context).pop();
+      },
       child: Container(
         width: 120,
         height: 50,
@@ -173,10 +181,10 @@ class _Add_ScreenState extends State<Add_Screen> {
             selectedItemBuilder: (context) => _itemi
                 .map((e) => Row(
                       children: [
-                        SizedBox(
-                          width: 40,
-                          child: Image.asset('assets/images/$e.png'),
-                        ),
+                        // SizedBox(
+                        //   width: 40,
+                        //   child: Image.asset('assets/images/$e.png'),
+                        // ),
                         const SizedBox(
                           width: 5,
                         ),
@@ -291,8 +299,8 @@ class _Add_ScreenState extends State<Add_Screen> {
                               width: 10,
                             ),
                             Text(
-                              e,
                               style: const TextStyle(fontSize: 18),
+                              e,
                             ),
                           ],
                         ),
