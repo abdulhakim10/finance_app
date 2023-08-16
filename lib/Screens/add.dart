@@ -26,7 +26,7 @@ class _Add_ScreenState extends State<Add_Screen> {
     'Transportation',
     'Education'
   ];
-  final List<String> _itemi = ['Income', 'Expend'];
+  final List<String> _itemi = ['Income', 'Expand'];
   @override
   void initState() {
     // TODO: implement initState
