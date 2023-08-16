@@ -1,11 +1,10 @@
-// import 'package:finance_app/widgets/chart.dart';
 import 'package:finance_app/data/model/add_date.dart';
 import 'package:finance_app/data/utility.dart';
 import 'package:finance_app/widgets/chart.dart';
 import 'package:flutter/material.dart';
 
 class Statistics extends StatefulWidget {
-  const Statistics({Key? key}) : super(key: key);
+  const Statistics({super.key});
 
   @override
   State<Statistics> createState() => _StatisticsState();
@@ -40,8 +39,8 @@ class _StatisticsState extends State<Statistics> {
         SliverToBoxAdapter(
           child: Column(
             children: [
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Statistics',
                 style: TextStyle(
                   color: Colors.black,
@@ -49,7 +48,7 @@ class _StatisticsState extends State<Statistics> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
@@ -71,7 +70,7 @@ class _StatisticsState extends State<Statistics> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: index_color == index
-                                  ? Color.fromARGB(255, 47, 125, 121)
+                                  ? const Color.fromARGB(255, 47, 125, 121)
                                   : Colors.white,
                             ),
                             alignment: Alignment.center,
@@ -92,13 +91,13 @@ class _StatisticsState extends State<Statistics> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Chart(
                 indexx: index_color,
               ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -126,18 +125,19 @@ class _StatisticsState extends State<Statistics> {
             return ListTile(
               leading: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
-                child: Image.asset('images/${a[index].name}.png', height: 40),
+                child: Image.asset('assets/images/${a[index].name}.png',
+                    height: 40),
               ),
               title: Text(
                 a[index].name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               subtitle: Text(
                 ' ${a[index].dateTime.year}-${a[index].dateTime.day}-${a[index].dateTime.month}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
               ),
