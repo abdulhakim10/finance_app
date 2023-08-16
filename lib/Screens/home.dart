@@ -1,5 +1,6 @@
 import 'package:finance_app/data/listdata.dart';
 import 'package:finance_app/data/model/add_date.dart';
+import 'package:finance_app/data/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -188,12 +189,12 @@ Widget _head() {
               color: const Color.fromARGB(255, 47, 125, 121),
               borderRadius: BorderRadius.circular(15)),
           // total balance
-          child: const Column(
+          child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -213,16 +214,16 @@ Widget _head() {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 7,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 15),
                 child: Row(
                   children: [
                     Text(
-                      '\$ 2,900',
-                      style: TextStyle(
+                      '\$ ${total()}',
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
                           color: Colors.white),
@@ -231,17 +232,17 @@ Widget _head() {
                 ),
               ),
               //income
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       children: [
-                        Row(
+                        const Row(
                           children: [
                             CircleAvatar(
                               radius: 13,
@@ -266,22 +267,22 @@ Widget _head() {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 7,
                         ),
                         Text(
-                          '\$ 2,957',
-                          style: TextStyle(
+                          '\$ ${income()}',
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 17,
                               color: Colors.white),
                         )
                       ],
                     ),
-                    //exchange
+                    //expenses
                     Column(
                       children: [
-                        Row(
+                        const Row(
                           children: [
                             CircleAvatar(
                               radius: 13,
@@ -297,7 +298,7 @@ Widget _head() {
                               width: 7,
                             ),
                             Text(
-                              'Exchange',
+                              'Expenses',
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16,
@@ -306,12 +307,12 @@ Widget _head() {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 7,
                         ),
                         Text(
-                          '\$ 2,957',
-                          style: TextStyle(
+                          '\$ ${expenses()}',
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 17,
                               color: Colors.white),
