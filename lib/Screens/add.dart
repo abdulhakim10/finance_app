@@ -13,20 +13,23 @@ class Add_Screen extends StatefulWidget {
 
 class _Add_ScreenState extends State<Add_Screen> {
   final box = Hive.box<Add_data>('data');
-  DateTime date = DateTime.now();
+  DateTime date = new DateTime.now();
+  String? selctedItem;
+  String? selctedItemi;
   final TextEditingController expalin_C = TextEditingController();
   FocusNode ex = FocusNode();
   final TextEditingController amount_c = TextEditingController();
   FocusNode amount_ = FocusNode();
-  String? selectedItem;
-  String? selectedItemi;
   final List<String> _item = [
-    'Food',
-    'Transfer',
-    'Transportation',
-    'Education'
+    'food',
+    "Transfer",
+    "Transportation",
+    "Education"
   ];
-  final List<String> _itemi = ['Income', 'Expand'];
+  final List<String> _itemei = [
+    'Income',
+    "Expand",
+  ];
   @override
   void initState() {
     // TODO: implement initState
@@ -43,16 +46,17 @@ class _Add_ScreenState extends State<Add_Screen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
-          child: Stack(
-        alignment: AlignmentDirectional.center,
-        children: [
-          background_container(context),
-          Positioned(
-            top: 125,
-            child: main_container(),
-          )
-        ],
-      )),
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            background_container(context),
+            Positioned(
+              top: 120,
+              child: main_container(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -66,21 +70,19 @@ class _Add_ScreenState extends State<Add_Screen> {
       width: 340,
       child: Column(
         children: [
-          const SizedBox(
-            height: 50,
-          ),
+          SizedBox(height: 50),
           name(),
-          const SizedBox(height: 30),
+          SizedBox(height: 30),
           explain(),
-          const SizedBox(height: 30),
+          SizedBox(height: 30),
           amount(),
-          const SizedBox(height: 30),
-          how(),
-          const SizedBox(height: 30),
+          SizedBox(height: 30),
+          How(),
+          SizedBox(height: 30),
           date_time(),
-          const Spacer(),
+          Spacer(),
           save(),
-          const SizedBox(height: 20),
+          SizedBox(height: 25),
         ],
       ),
     );
@@ -90,25 +92,26 @@ class _Add_ScreenState extends State<Add_Screen> {
     return GestureDetector(
       onTap: () {
         var add = Add_data(
-            selectedItemi!, amount_c.text, date, expalin_C.text, selectedItem!);
+            selctedItemi!, amount_c.text, date, expalin_C.text, selctedItem!);
         box.add(add);
         Navigator.of(context).pop();
       },
       child: Container(
-        width: 120,
-        height: 50,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: const Color(0xff368983),
+          color: Color(0xff368983),
         ),
-        child: const Text(
+        width: 120,
+        height: 50,
+        child: Text(
           'Save',
           style: TextStyle(
-              fontFamily: 'f',
-              fontSize: 17,
-              fontWeight: FontWeight.w700,
-              color: Colors.white),
+            fontFamily: 'f',
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            fontSize: 17,
+          ),
         ),
       ),
     );
@@ -117,119 +120,106 @@ class _Add_ScreenState extends State<Add_Screen> {
   Widget date_time() {
     return Container(
       alignment: Alignment.bottomLeft,
-      width: 300,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(width: 2, color: const Color(0xffC5C5C5))),
+          border: Border.all(width: 2, color: Color(0xffC5C5C5))),
+      width: 300,
       child: TextButton(
-          onPressed: () async {
-            DateTime? newDate = await showDatePicker(
-                context: context,
-                initialDate: date,
-                firstDate: DateTime(2020),
-                lastDate: DateTime(2100));
-            if (newDate == Null) return;
-            setState(() {
-              date = newDate!;
-            });
-          },
-          child: Text(
-            'date: ${date.year} / ${date.day} / ${date.month}',
-            style: const TextStyle(fontSize: 15, color: Colors.black),
-          )),
+        onPressed: () async {
+          DateTime? newDate = await showDatePicker(
+              context: context,
+              initialDate: date,
+              firstDate: DateTime(2020),
+              lastDate: DateTime(2100));
+          if (newDate == Null) return;
+          setState(() {
+            date = newDate!;
+          });
+        },
+        child: Text(
+          'Date : ${date.year} / ${date.day} / ${date.month}',
+          style: TextStyle(
+            fontSize: 15,
+            color: Colors.black,
+          ),
+        ),
+      ),
     );
   }
 
-  Padding how() {
+  Padding How() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.symmetric(horizontal: 15),
         width: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             width: 2,
-            color: const Color(0xffC5C5C5),
+            color: Color(0xffC5C5C5),
           ),
         ),
         child: DropdownButton<String>(
-            value: selectedItemi,
-            items: _itemi
-                .map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              e,
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          ],
-                        ),
+          value: selctedItemi,
+          onChanged: ((value) {
+            setState(() {
+              selctedItemi = value!;
+            });
+          }),
+          items: _itemei
+              .map((e) => DropdownMenuItem(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Row(
+                        children: [
+                          Text(
+                            e,
+                            style: TextStyle(fontSize: 18),
+                          )
+                        ],
                       ),
-                    ))
-                .toList(),
-            selectedItemBuilder: (context) => _itemi
-                .map((e) => Row(
-                      children: [
-                        // SizedBox(
-                        //   width: 40,
-                        //   child: Image.asset('assets/images/$e.png'),
-                        // ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(e)
-                      ],
-                    ))
-                .toList(),
-            hint: const Text(
+                    ),
+                    value: e,
+                  ))
+              .toList(),
+          selectedItemBuilder: (BuildContext context) => _itemei
+              .map((e) => Row(
+                    children: [Text(e)],
+                  ))
+              .toList(),
+          hint: Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text(
               'How',
               style: TextStyle(color: Colors.grey),
             ),
-            dropdownColor: Colors.white,
-            isExpanded: true,
-            underline: Container(),
-            onChanged: (value) {
-              setState(() {
-                selectedItemi = value!;
-              });
-            }),
+          ),
+          dropdownColor: Colors.white,
+          isExpanded: true,
+          underline: Container(),
+        ),
       ),
     );
   }
 
   Padding amount() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
         keyboardType: TextInputType.number,
         focusNode: amount_,
         controller: amount_c,
         decoration: InputDecoration(
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           labelText: 'amount',
           labelStyle: TextStyle(fontSize: 17, color: Colors.grey.shade500),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 2,
-              color: Color(0xffC5C5C5),
-            ),
-          ),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2, color: Color(0xffC5C5C5))),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 2,
-              color: Color(0xff368983),
-            ),
-          ),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2, color: Color(0xff368983))),
         ),
       ),
     );
@@ -237,29 +227,20 @@ class _Add_ScreenState extends State<Add_Screen> {
 
   Padding explain() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
         focusNode: ex,
         controller: expalin_C,
         decoration: InputDecoration(
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           labelText: 'explain',
           labelStyle: TextStyle(fontSize: 17, color: Colors.grey.shade500),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 2,
-              color: Color(0xffC5C5C5),
-            ),
-          ),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2, color: Color(0xffC5C5C5))),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 2,
-              color: Color(0xff368983),
-            ),
-          ),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2, color: Color(0xff368983))),
         ),
       ),
     );
@@ -269,66 +250,66 @@ class _Add_ScreenState extends State<Add_Screen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.symmetric(horizontal: 15),
         width: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             width: 2,
-            color: const Color(0xffC5C5C5),
+            color: Color(0xffC5C5C5),
           ),
         ),
         child: DropdownButton<String>(
-            value: selectedItem,
-            items: _item
-                .map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 40,
-                              child: Image.asset('assets/images/$e.png'),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              style: const TextStyle(fontSize: 18),
-                              e,
-                            ),
-                          ],
-                        ),
+          value: selctedItem,
+          onChanged: ((value) {
+            setState(() {
+              selctedItem = value!;
+            });
+          }),
+          items: _item
+              .map((e) => DropdownMenuItem(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            child: Image.asset('images/${e}.png'),
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            e,
+                            style: TextStyle(fontSize: 18),
+                          )
+                        ],
                       ),
-                    ))
-                .toList(),
-            selectedItemBuilder: (context) => _item
-                .map((e) => Row(
-                      children: [
-                        SizedBox(
-                          width: 40,
-                          child: Image.asset('assets/images/$e.png'),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(e)
-                      ],
-                    ))
-                .toList(),
-            hint: const Text(
+                    ),
+                    value: e,
+                  ))
+              .toList(),
+          selectedItemBuilder: (BuildContext context) => _item
+              .map((e) => Row(
+                    children: [
+                      Container(
+                        width: 42,
+                        child: Image.asset('images/${e}.png'),
+                      ),
+                      SizedBox(width: 5),
+                      Text(e)
+                    ],
+                  ))
+              .toList(),
+          hint: Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text(
               'Name',
               style: TextStyle(color: Colors.grey),
             ),
-            dropdownColor: Colors.white,
-            isExpanded: true,
-            underline: Container(),
-            onChanged: (value) {
-              setState(() {
-                selectedItem = value!;
-              });
-            }),
+          ),
+          dropdownColor: Colors.white,
+          isExpanded: true,
+          underline: Container(),
+        ),
       ),
     );
   }
@@ -339,7 +320,7 @@ class _Add_ScreenState extends State<Add_Screen> {
         Container(
           width: double.infinity,
           height: 240,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: Color(0xff368983),
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
@@ -348,11 +329,9 @@ class _Add_ScreenState extends State<Add_Screen> {
           ),
           child: Column(
             children: [
-              const SizedBox(
-                height: 40,
-              ),
+              SizedBox(height: 40),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -361,28 +340,25 @@ class _Add_ScreenState extends State<Add_Screen> {
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
+                      child: Icon(Icons.arrow_back, color: Colors.white),
                     ),
-                    const Text(
+                    Text(
                       'Adding',
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.attach_file_outlined,
                       color: Colors.white,
                     )
                   ],
                 ),
-              ),
+              )
             ],
           ),
-        )
+        ),
       ],
     );
   }
